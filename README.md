@@ -1,7 +1,7 @@
 # relayaway
 automated deployment of wireguard server to tunnel port 44158 for Helium Hotspot p2p traffic, this should become obsolete in a few months with the light hotspot conversion
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/diagram.png?raw=true)
+![Alt text](diagram.png?raw=true "diagram")
 
 ## requirements
 1. linuxy environment (ubuntu 20.04 WSL2 was used)
