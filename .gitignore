@@ -1,6 +1,7 @@
 .vault-password
 
 *.txt
+*.conf
 
 #### TERRAFORM ####
 # Local .terraform directories

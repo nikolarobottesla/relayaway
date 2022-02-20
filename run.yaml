@@ -22,7 +22,7 @@
     loop:
       - net.ipv4.ip_forward
       - net.ipv4.conf.all.proxy_arp
-  - name: create config for wg server, the docker container uses this to create wgo.conf
+  - name: create config for wg server
     template:
       src: "server_wg0.conf.j2"
       dest: "/etc/wireguard/wg0.conf"
@@ -35,3 +35,17 @@
       - shutdown -r 1 # reboot in 1 minute
   roles:
     - role: jnv.unattended-upgrades
+
+- hosts: wg_client
+  tags: client
+  vars_files:
+    - 'vars/vault.yaml'
+  tasks:
+  - name: create config for wg# peer1
+    template:
+      src: "peer1_wg0.conf.j2"
+      dest: "peer1_{{ inventory_hostname }}.conf"
+  - name: create config for wg# peer2
+    template:
+      src: "peer2_wg0.conf.j2"
+      dest: "peer2_{{ inventory_hostname }}.conf"

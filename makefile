@@ -12,3 +12,6 @@ reqs:
 # server
 server:
 	ansible-playbook run.yaml -b --limit wg_server
+
+client:
+	ansible-playbook run.yaml --limit wg_client --tags client
