@@ -1,0 +1,8 @@
+# install using: ansible-galaxy -r requirements.yaml install 
+roles:
+- src: jnv.unattended-upgrades
+
+
+collections:
+  - community.general
+  - community.network

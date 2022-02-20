@@ -1,0 +1,8 @@
+---
+
+# unattented-upgrades
+unattended_automatic_reboot_time: 06:00
+unattended_origins_patterns:
+  - 'origin=Ubuntu,archive=${distro_codename}-security'
+  - 'o=Ubuntu,a=${distro_codename}'
+  # - 'o=Ubuntu,a=${distro_codename}-updates' disabled by default in ubuntu's '50unattended-upgrades' in apt.conf.d

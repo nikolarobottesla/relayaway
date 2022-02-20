@@ -1,0 +1,37 @@
+---
+
+- hosts: wg_server
+  vars_files:
+    - 'vars/vault.yaml'
+  tasks:
+  - name: Update apt-get repo and cache
+    apt: update_cache=yes
+  - name: Upgrade all apt packages
+    apt: upgrade=dist
+  - name: install packages
+    package:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - wireguard
+  - name: config packet forwarding and proxy_arp
+    lineinfile:
+      path: "/etc/sysctl.conf"
+      regexp: '^{{item}}'
+      line: '{{item}} = 1'
+    loop:
+      - net.ipv4.ip_forward
+      - net.ipv4.conf.all.proxy_arp
+  - name: create config for wg server, the docker container uses this to create wgo.conf
+    template:
+      src: "server_wg0.conf.j2"
+      dest: "/etc/wireguard/wg0.conf"
+  - name: commands
+    command: "{{item}}"
+    loop:
+      - sysctl -p  # loads the edits from sysctl.conf
+      - systemctl enable wg-quick@wg0
+      - systemctl start wg-quick@wg0
+      - shutdown -r 1 # reboot in 1 minute
+  roles:
+    - role: jnv.unattended-upgrades

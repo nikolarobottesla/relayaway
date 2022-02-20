@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+[Interface]
+Address = {{wg_subnet}}.2}
+PrivateKey = {{wg_p1_privkey}}
+
+[Peer]
+# wg_server
+PublicKey = {{s_keys[inventory_hostname].s_pubkey}}
+PresharedKey = {{s_keys[inventory_hostname].presh_key}}
+AllowedIPs = {{wg_allowed}}
+Endpoint = {{s_keys[inventory_hostname].s_pub_ip}}:{{wg_port}}
